@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Project 2: Geocoding with JavaScript</title>
+	<meta name="viewport" content="initial-scale=1.0">
+	<link rel='stylesheet' type='text/css' href='google-map-search.css'/>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+ 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQNg_S_N4P0TIfAZI7biP-WbFvCXj_gV0&callback=initMap"
+     defer></script>
+	<script src='google-map-search.js'></script>
+</head>
+<body>
+
+	<form>
+		<div>
+			<label for="address">Address: </label>
+			<input type="text" name="address"/>
+			<button type="button">Add</button>
+		</div>
+	</form>
+
+	<div>
+		<div id="mapCanvas">
+			
+		</div>
+
+		<div id="adrsList">
+			<ul>
+			
+			</ul>
+		</div>
+		
+	</div>
+
+</body>
+</html>
