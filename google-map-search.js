@@ -10,8 +10,7 @@
 		clickable, and each click will center the map on the clicked location.
 *******************************************************************************/
 var map;
-var zoom = 6;
-var markers = [];
+var zoom = 7;
 var rcnjLat = 41.0815079;
 var rcnjLng = -74.1746234;
 var locList = [];
@@ -23,7 +22,7 @@ $(document).ready(function() {
 	initMap();
 
 	// on click functionality for the only button, 'add'
-	$('button').click(function() {
+	$('button').on("click", function() {
 		var adrs = $(this).siblings('input').val();
 		addLocation(adrs);
 	});
@@ -48,12 +47,11 @@ function initMap() {
 // makes an AJAX call based on user input and populates address list with result
 function addLocation(adrs) {
 	$.getJSON({
-		url  : 'https://maps.googleapis.com/maps/api/geocode/json',
-		data : {
-				address : adrs
+		url: 'https://maps.googleapis.com/maps/api/geocode/json',
+		data: {
+			address : adrs
 		},
 		success : function( data, textStatus ) {
-
 			// calling geometry will result in a TypeError when input was invalid
 			try {
 				var lat = data.results[0].geometry.location.lat;
@@ -74,8 +72,8 @@ function addLocation(adrs) {
 				position: loc,
 				map: map,
 			});
+
 			locList.push(loc);	
-			markers.push(marker);
 			marker.setMap(map);
 
 			// add address to list, set name  = adrsCount for location referencing
