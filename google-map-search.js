@@ -10,7 +10,7 @@
 		clickable, and each click will center the map on the clicked location.
 *******************************************************************************/
 var map;
-var zoom = 8;
+var zoom = 6;
 var markers = [];
 var rcnjLat = 41.0815079;
 var rcnjLng = -74.1746234;
