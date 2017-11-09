@@ -62,7 +62,7 @@ function addLocation(adrs) {
 				var lng = data.results[0].geometry.location.lng;
 			} catch(e) {
 				if(e.name == "TypeError")
-					alert("Invalid input. Please enter a human readable address.");
+					alert("No location returned. Please enter a human readable address.");
 				else 
 					alert("Error: "+e.name);
 				return;
@@ -87,9 +87,6 @@ function addLocation(adrs) {
 				.attr("id", 'adrs')
 				.appendTo('ul');
 			adrsCount++;
-		},
-		error: function() {
-			alert("Invalid input. Please enter a human readable address.");
 		}
 	});
 }
