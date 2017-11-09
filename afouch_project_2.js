@@ -19,7 +19,11 @@ var adrsCount = 0;
 // called once the HTML document has finished loading
 $(document).ready(function() {
 	
-	initMap();
+	//initMap();
+	map = new google.maps.Map(document.getElementById('mapCanvas'), {
+		center: {lat: rcnjLat, lng: rcnjLng}, 
+		zoom: zoom
+	});
 
 	// on click functionality for the only button, 'add'
 	$('button').on("click", function() {
