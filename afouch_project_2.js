@@ -13,8 +13,6 @@ var map;
 var zoom = 7;
 var rcnjLat = 41.0815079;
 var rcnjLng = -74.1746234;
-var locList = [];
-var adrsCount = 0;
 
 // called once the HTML document has finished loading
 $(document).ready(function() {
@@ -28,15 +26,15 @@ $(document).ready(function() {
 	// on click functionality for the only button, 'add'
 	$('button').on("click", function() {
 		var adrs = $(this).siblings('input').val();
+		$(this).siblings('input').val('');
 		addLocation(adrs);
 	});
 
 	// on click functionality for the address list elements
 	$('#adrsList').on("click", "#adrs", function() {
-		var index = $(this).attr('name');
-		var lat = locList[index].lat;
-		var lng = locList[index].lng;
-		map.setCenter({ lat: lat, lng: lng });
+		var lat = $(this).attr('lat');
+		var lng = $(this).attr('lng');
+		map.setCenter({ lat: parseFloat(lat), lng: parseFloat(lng) });
 	});
 });
 
@@ -56,37 +54,29 @@ function addLocation(adrs) {
 			address : adrs
 		},
 		success : function( data, textStatus ) {
-			// calling geometry will result in a TypeError when input was invalid
-			try {
-				var lat = data.results[0].geometry.location.lat;
-				var lng = data.results[0].geometry.location.lng;
-			} catch(e) {
-				if(e.name == "TypeError")
-					alert("No location returned. Please enter a human readable address.");
-				else 
-					alert("Error: "+e.name);
+			if(data.results.length < 1){
+				alert("No location returned. Please enter a human readable address.");
 				return;
 			}
-			
-			map.setCenter({lat: lat, lng: lng});
-			map.setZoom(zoom);
-			
-			var loc = { lat: lat, lng: lng};
+
+			var lat = data.results[0].geometry.location.lat;
+			var lng = data.results[0].geometry.location.lng;
 			var marker = new google.maps.Marker({
-				position: loc,
+				position: { lat: lat, lng: lng},
 				map: map,
 			});
-
-			locList.push(loc);	
+			
+			map.setCenter({lat: lat, lng: lng});
+			map.setZoom(zoom);				
 			marker.setMap(map);
 
-			// add address to list, set name  = adrsCount for location referencing
+			// add address to list, set name attr is used for locating index in locList
 			$('<li/>')
 				.text(adrs)
-				.attr("name", adrsCount)
+				.attr("lat", lat)
+				.attr("lng", lng)
 				.attr("id", 'adrs')
 				.appendTo('ul');
-			adrsCount++;
 		}
 	});
 }
