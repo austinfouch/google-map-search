@@ -17,12 +17,7 @@ var rcnjLng = -74.1746234;
 // called once the HTML document has finished loading
 $(document).ready(function() {
 	
-	//initMap();
-	map = new google.maps.Map(document.getElementById('mapCanvas'), {
-		center: {lat: rcnjLat, lng: rcnjLng}, 
-		zoom: zoom
-	});
-
+	initMap();
 	// on click functionality for the only button, 'add'
 	$('button').on("click", function() {
 		var adrs = $(this).siblings('input').val();
