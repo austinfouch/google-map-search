@@ -29,9 +29,11 @@ $(document).ready(function() {
 
 	// on click functionality for the address list elements
 	$('#adrsList').on("click", "#adrs", function() {
-		var lat = $(this).attr('lat');
-		var lng = $(this).attr('lng');
-		map.setCenter({ lat: parseFloat(lat), lng: parseFloat(lng) });
+		var geocode = $(this).data();
+		map.setCenter({ 
+			lat: parseFloat(geocode.lat), 
+			lng: parseFloat(geocode.lng)
+		});
 	});
 });
 
@@ -63,15 +65,18 @@ function addLocation(adrs) {
 				map: map,
 			});
 			
-			map.setCenter({lat: lat, lng: lng});
+			map.setCenter({
+				lat: lat, 
+				lng: lng
+			});
 			map.setZoom(zoom);				
 			marker.setMap(map);
 
 			// add address to list, set name attr is used for locating index in locList
 			$('<li/>')
 				.text(adrs)
-				.attr("lat", lat)
-				.attr("lng", lng)
+				.data("lat", lat)
+				.data("lng", lng)
 				.attr("id", 'adrs')
 				.appendTo('ul');
 		}
